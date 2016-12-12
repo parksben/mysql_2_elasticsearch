@@ -1,9 +1,11 @@
 # mysql_2_elasticsearch
 
-标签（空格分隔）： Customizable-importer-from-mysql-to-elasticsearch
-可定制的 elasticsearch 数据导入工具 ——基于 elasticsearch 的 JS API
+
 
 ---
+
+A customizable importer from mysql to elasticsearch.
+可定制的 elasticsearch 数据导入工具 ——基于 elasticsearch 的 JS API
 
 ##主要功能
 ####1. 完全使用 JS 实现数据从 MySQL 到 elasticsearch 的迁移；
