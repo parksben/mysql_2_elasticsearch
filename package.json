@@ -1,0 +1,34 @@
+{
+  "name": "mysql_2_elasticsearch",
+  "version": "1.0.0",
+  "description": "Customizable importer from mysql to elasticsearch.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/parksben/mysql_2_elasticsearch.git"
+  },
+  "keywords": [
+    "elasticsearch",
+    "mysql",
+    "importer",
+    "customizable",
+    "river",
+    "jdbc"
+  ],
+  "author": "parksben",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/parksben/mysql_2_elasticsearch/issues"
+  },
+  "homepage": "https://github.com/parksben/mysql_2_elasticsearch#readme",
+  "devDependencies": {
+    "elasticsearch": "^12.1.1",
+    "mysql": "^2.12.0"
+  }
+}

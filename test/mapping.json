@@ -1,0 +1,50 @@
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "ik": {
+          "tokenizer": "ik_smart"
+        }
+      }
+    }
+  },
+  "mappings": {
+    "users": {
+      "_all": {
+        "analyzer": "ik_smart",
+        "search_analyzer": "ik_smart",
+        "term_vector": "no",
+        "store": "false"
+      },
+      "properties": {
+        "users_id": {
+          "type": "long"
+        },
+        "name": {
+          "type": "text",
+          "analyzer": "ik_smart",
+          "search_analyzer": "ik_smart",
+          "include_in_all": "true",
+          "boost": 8
+        },
+        "age": {
+          "type": "number"
+        },
+        "description": {
+          "type": "text",
+          "analyzer": "ik_smart",
+          "search_analyzer": "ik_smart",
+          "include_in_all": "true",
+          "boost": 8
+        },
+        "address": {
+          "type": "text",
+          "analyzer": "ik_smart",
+          "search_analyzer": "ik_smart",
+          "include_in_all": "true",
+          "boost": 8
+        }
+      }
+    }
+  }
+}
