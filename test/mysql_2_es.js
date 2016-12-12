@@ -1,4 +1,4 @@
-var esMysqlRiver = require('./mysql_2_elasticsearch');
+var esMysqlRiver = require('mysql_2_elasticsearch');
 
 /*
 ** 以下为 mysql_2_elasticsearch 的相关参数配置(详情见注释)

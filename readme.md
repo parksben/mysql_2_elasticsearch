@@ -4,8 +4,7 @@
 
 ---
 
-A customizable importer from mysql to elasticsearch.
-可定制的 elasticsearch 数据导入工具 ——基于 elasticsearch 的 JS API
+可定制的 elasticsearch 数据导入工具
 
 ##主要功能
 ####1. 完全使用 JS 实现数据从 MySQL 到 elasticsearch 的迁移；
@@ -17,7 +16,7 @@ npm install mysql_2_elasticsearch
 ```
 ##快速开始（简单用例）
 ```
-var esMysqlRiver = require('./mysql_2_elasticsearch');
+var esMysqlRiver = require('mysql_2_elasticsearch');
 
 var river_config = {
   mysql: {
@@ -68,7 +67,7 @@ esMysqlRiver(river_config, function(obj) {
 ```
 ##最佳实现（完整用例）
 ```
-var esMysqlRiver = require('./mysql_2_elasticsearch');
+var esMysqlRiver = require('mysql_2_elasticsearch');
 
 /*
 ** mysql_2_elasticsearch 的相关参数配置(详情见注释)
