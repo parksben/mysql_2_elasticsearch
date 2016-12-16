@@ -1,19 +1,22 @@
 # mysql_2_elasticsearch
 
 
-
----
-
 可定制的 elasticsearch 数据导入工具
 
+##版本更新说明：
+v1.0.5 -> 修复解决 exception_handler[field_name].writeAs 不能传递回调函数的问题
+
 ##主要功能
-####1. 完全使用 JS 实现数据从 MySQL 到 elasticsearch 的迁移；
-####2. 可自定义的数据迁移的规则（数据表/字段关系、字段过滤、使用正则进行异常处理）；
-####3. 可自定义的异步分片导入方式，数据导入效率更高。
+1. 完全使用 JS 实现数据从 MySQL 到 elasticsearch 的迁移；
+2. 可一次性导入多张 MySQL 数据表；
+2. 可自定义的数据迁移的规则（数据表/字段关系、字段过滤、使用正则进行异常处理）；
+3. 可自定义的异步分片导入方式，数据导入效率更高。
+
 ##一键安装
 ```
 npm install mysql_2_elasticsearch
 ```
+
 ##快速开始（简单用例）
 ```
 var esMysqlRiver = require('mysql_2_elasticsearch');
@@ -46,7 +49,7 @@ var river_config = {
 ** 1. obj.total    => 需要传输的数据表数量
 ** 2. obj.success  => 传输成功的数据表数量
 ** 3. obj.failed   => 传输失败的数据表数量
-** 4. obj.failed   => 本次数据传输的结论
+** 4. obj.result   => 本次数据传输的结论
 */
 
 esMysqlRiver(river_config, function(obj) {
@@ -65,6 +68,7 @@ esMysqlRiver(river_config, function(obj) {
   /* 将传输结果打印到终端 */
 });
 ```
+
 ##最佳实现（完整用例）
 ```
 var esMysqlRiver = require('mysql_2_elasticsearch');
@@ -104,15 +108,21 @@ var river_config = {
         'password',
         'age'
       ],
-      exception_handler: {           // [非必需] 异常处理器，使用JS正则表达式处理异常数据，避免 es 入库时由于类型不合法造成数据缺失
-        'birthday': [                // [示例] 对 users 表的 birthday 字段的异常数据进行处理
+      exception_handler: {               // [非必需] 异常处理器，使用JS正则表达式处理异常数据，避免 es 入库时由于类型不合法造成数据缺失
+        'birthday': [                    // [示例] 对 users 表的 birthday 字段的异常数据进行处理
           {
-            match: /NaN/gi,          // [示例] 正则条件(此例匹配字段值为 "NaN" 的情况)
-            writeAs: null            // [示例] 将 "NaN" 重写为 null
+            match: /NaN/gi,              // [示例] 正则条件(此例匹配字段值为 "NaN" 的情况)
+            writeAs: null                // [示例] 将 "NaN" 重写为 null
           },
           {
-            match: /(\d{4})年/gi,    // [示例] 正则表达式(此例匹配字段值为形如 "2016年" 的情况)
-            writeAs: '$1.1'          // [示例] 将 "2015年" 样式的数据重写为 "2016.1" 样式的数据
+            match: /(\d{4})年/gi,        // [示例] 正则表达式(此例匹配字段值为形如 "2016年" 的情况)
+            writeAs: '$1.1'              // [示例] 将 "2016年" 样式的数据重写为 "2016.1" 样式的数据
+          },
+          {
+            match: /(\d{4})年/gi,        // [示例] 正则表达式(此例匹配字段值为形如 "2016年" 的情况)
+            writeAs: function (word){    // [示例] 用回调函数处理数据
+              return parseInt(word) + '.1';
+            }
           }
         ]
       }
@@ -141,10 +151,12 @@ esMysqlRiver(river_config, function(obj) {
   console.log('\n(使用 Ctrl + C 退出进程)');
 });
 ```
+
 ##注意事项及参考
-####1. elasticsearch数据导入前请先配置好数据的 mapping；
-####2. ```host_config``` 更多参数设置详见 [es官方API文档](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/configuration.html)；
-####3. mysql 表的自增 id 自动替换为 ```表名+_id``` 的格式，如：```users_id```；
-####4. 如出现数据缺失情况，请注意查看 elasticsearch 终端进程或日志，找出未成功导入的数据，通过设置 exception_handler 参数处理它。
+1. elasticsearch数据导入前请先配置好数据的 mapping；
+2. ```host_config``` 更多参数设置详见 [es官方API文档](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/configuration.html)；
+3. mysql 表的自增 id 自动替换为 ```表名+_id``` 的格式，如：```users_id```；
+4. 如出现数据缺失情况，请注意查看 elasticsearch 终端进程或日志，找出未成功导入的数据，通过设置 exception_handler 参数处理它。
+
 ##github 项目地址
-####https://github.com/parksben/mysql_2_elasticsearch
+https://github.com/parksben/mysql_2_elasticsearch
