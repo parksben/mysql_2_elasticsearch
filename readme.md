@@ -4,11 +4,12 @@
 可定制的 elasticsearch 数据导入工具
 
 ##版本更新说明：
-v1.0.5 -> 修复解决 exception_handler[field_name].writeAs 不能传递回调函数的问题
+v1.0.6 -> 新增功能：将 SQL 语句查询的结果集导入 es 中 (新增配置项 ```riverMap[table => type].SQL```)
+v1.0.5 -> 修复bug：配置项 ```exception_handler[field_name].writeAs``` 不能传递回调函数
 
 ##主要功能
 1. 完全使用 JS 实现数据从 MySQL 到 elasticsearch 的迁移；
-2. 可一次性导入多张 MySQL 数据表；
+2. 可一次性导入多张 MySQL 数据表和数据集合；
 2. 可自定义的数据迁移的规则（数据表/字段关系、字段过滤、使用正则进行异常处理）；
 3. 可自定义的异步分片导入方式，数据导入效率更高。
 
@@ -125,6 +126,14 @@ var river_config = {
             }
           }
         ]
+      }
+    },
+    'favors => favors': {
+      // [非必需] MySQL 查询语句，将查询结果导入名为 favors 的es类型中，若不配置此项，默认将数据表 favors 的数据导入 es 中
+      SQL: 'SELECT favors.id,users.name,favors.favor FROM favors,users WHERE favors.user_id = users.id',
+      filter_out: [ ... ],
+      exception_handler: {
+        ...
       }
     },
     // Other fields' options...

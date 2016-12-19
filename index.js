@@ -5,7 +5,7 @@ var es_jdbc = require('./lib/pull-push.js');
 var pullDataFromMysql = es_jdbc.pull;
 var pushDataToElastic = es_jdbc.push;
 
-var transSingleTable = function(pool, client, config, $table, $type, filter_map, exception_handler, callback) {
+var transSingleTable = function(pool, client, config, $table, sqlPhrase, $type, filter_map, exception_handler, callback) {
   // 配置项
   var es_config = {
     host: config.elasticsearch.host_config,
@@ -17,7 +17,7 @@ var transSingleTable = function(pool, client, config, $table, $type, filter_map,
   };
 
   // 导出 mysql 数据表 到 bulk文件
-  pullDataFromMysql(pool, $table, filter_map, exception_handler, function(obj) {
+  pullDataFromMysql(pool, $table, sqlPhrase, filter_map, exception_handler, function(obj) {
     if (obj.message == 'success') {
       console.log('==>> ' + obj.table + '.bulk.json 文件构造完毕！');
     }
@@ -66,7 +66,10 @@ module.exports = function(config, callback) {
       var exception_handler = config.riverMap[key].exception_handler;
     }
 
-    transSingleTable(pool, client, config, curTable, curType, filter_map, exception_handler, function(state) {
+    // 表名为SQL，则表示将SQL查询结果存入对应type
+    var sqlPhrase = !config.riverMap[key].SQL ? '' : config.riverMap[key].SQL;
+
+    transSingleTable(pool, client, config, curTable, sqlPhrase, curType, filter_map, exception_handler, function(state) {
       if (state) {
         successArr.push(curTable);
       } else {
