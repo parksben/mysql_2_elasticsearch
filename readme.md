@@ -169,5 +169,5 @@ esMysqlRiver(river_config, function(obj) {
 3. mysql 表的自增 id 自动替换为 ```表名+_id``` 的格式，如：```users_id```；
 4. 如出现数据缺失情况，请注意查看 elasticsearch 终端进程或日志，找出未成功导入的数据，通过设置 exception_handler 参数处理它。
 
-##github 项目地址
+##github 原始项目地址
 https://github.com/parksben/mysql_2_elasticsearch
