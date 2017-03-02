@@ -4,8 +4,8 @@
 可定制的 elasticsearch 数据导入工具
 
 ##fork(mysql_2_elasticsearch)版本更新说明：
-v1.0.6 -> 新增功能：将 SQL 语句查询的结果集导入 es 中 (新增配置项 ```riverMap[table => type].SQL```)
-v1.0.5 -> 修复bug：配置项 ```exception_handler[field_name].writeAs``` 不能传递回调函数
+- v1.0.6 -> 新增功能：将 SQL 语句查询的结果集导入 es 中 (新增配置项 ```riverMap[table => type].SQL```)
+- v1.0.5 -> 修复bug：配置项 ```exception_handler[field_name].writeAs``` 不能传递回调函数
 
 ##主要功能
 1. 完全使用 JS 实现数据从 MySQL 到 elasticsearch 的迁移；
