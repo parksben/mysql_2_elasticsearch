@@ -1,11 +1,11 @@
-# mysql_2_elasticsearch
+# mysql2elasticsearch
 
 
 可定制的 elasticsearch 数据导入工具
 
-##版本更新说明：
-v1.0.6 -> 新增功能：将 SQL 语句查询的结果集导入 es 中 (新增配置项 ```riverMap[table => type].SQL```)
-v1.0.5 -> 修复bug：配置项 ```exception_handler[field_name].writeAs``` 不能传递回调函数
+##fork(mysql_2_elasticsearch)版本更新说明：
+- v1.0.6 -> 新增功能：将 SQL 语句查询的结果集导入 es 中 (新增配置项 ```riverMap[table => type].SQL```)
+- v1.0.5 -> 修复bug：配置项 ```exception_handler[field_name].writeAs``` 不能传递回调函数
 
 ##主要功能
 1. 完全使用 JS 实现数据从 MySQL 到 elasticsearch 的迁移；
@@ -13,14 +13,16 @@ v1.0.5 -> 修复bug：配置项 ```exception_handler[field_name].writeAs``` 不�
 2. 可自定义的数据迁移的规则（数据表/字段关系、字段过滤、使用正则进行异常处理）；
 3. 可自定义的异步分片导入方式，数据导入效率更高。
 
-##一键安装
+##一键安装此模块
 ```
-npm install mysql_2_elasticsearch
+npm install tomoat/mysql2elasticsearch
+or
+yarn add tomoat/mysql2elasticsearch
 ```
 
 ##快速开始（简单用例）
 ```
-var esMysqlRiver = require('mysql_2_elasticsearch');
+var esMysqlRiver = require('mysql2elasticsearch');
 
 var river_config = {
   mysql: {
@@ -72,10 +74,10 @@ esMysqlRiver(river_config, function(obj) {
 
 ##最佳实现（完整用例）
 ```
-var esMysqlRiver = require('mysql_2_elasticsearch');
+var esMysqlRiver = require('mysql2elasticsearch');
 
 /*
-** mysql_2_elasticsearch 的相关参数配置(详情见注释)
+** mysql2elasticsearch 的相关参数配置(详情见注释)
 */
 
 var river_config = {
@@ -167,5 +169,5 @@ esMysqlRiver(river_config, function(obj) {
 3. mysql 表的自增 id 自动替换为 ```表名+_id``` 的格式，如：```users_id```；
 4. 如出现数据缺失情况，请注意查看 elasticsearch 终端进程或日志，找出未成功导入的数据，通过设置 exception_handler 参数处理它。
 
-##github 项目地址
+##github 原始项目地址
 https://github.com/parksben/mysql_2_elasticsearch
