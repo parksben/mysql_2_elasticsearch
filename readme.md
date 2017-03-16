@@ -4,8 +4,11 @@
 可定制的 elasticsearch 数据导入工具
 
 ##版本更新说明：
-v1.0.6 -> 新增功能：将 SQL 语句查询的结果集导入 es 中 (新增配置项 ```riverMap[table => type].SQL```)
-v1.0.5 -> 修复bug：配置项 ```exception_handler[field_name].writeAs``` 不能传递回调函数
+|releases|logs|
+|--------|----|
+|v1.0.7|对不规范的时间日期字符串的宽容性优化；代码稳健性优化；导库任务结束后自动断开 Mysql 连接|
+|v1.0.6|新增功能：支持使用 SQL 语句，将查询结果集导入 ES|
+|v1.0.5|新增功能：配置项 ```exception_handler[field_name].writeAs``` 支持传递回调函数|
 
 ##主要功能
 1. 完全使用 JS 实现数据从 MySQL 到 elasticsearch 的迁移；
@@ -65,7 +68,6 @@ esMysqlRiver(river_config, function(obj) {
     console.log('\n结论：传送未成功...');
   }
   console.log('---------------------------------');
-  console.log('\n(使用 Ctrl + C 退出进程)');
   /* 将传输结果打印到终端 */
 });
 ```
@@ -157,15 +159,14 @@ esMysqlRiver(river_config, function(obj) {
     console.log('\n结论：传送未成功...');
   }
   console.log('---------------------------------');
-  console.log('\n(使用 Ctrl + C 退出进程)');
 });
 ```
 
 ##注意事项及参考
-1. elasticsearch数据导入前请先配置好数据的 mapping；
-2. ```host_config``` 更多参数设置详见 [es官方API文档](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/configuration.html)；
+1. elasticsearch 数据导入前请事先导入或配置好 index/type 的数据结构；
+2. ```host_config``` 参数设置详见 [es官方文档](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/configuration.html)；
 3. mysql 表的自增 id 自动替换为 ```表名+_id``` 的格式，如：```users_id```；
-4. 如出现数据缺失情况，请注意查看 elasticsearch 终端进程或日志，找出未成功导入的数据，通过设置 exception_handler 参数处理它。
+4. 如因数据格式或内容问题导致的元数据导入缺失或失败，可通过设置 exception_handler 参数进行包容。
 
 ##github 项目地址
 https://github.com/parksben/mysql_2_elasticsearch

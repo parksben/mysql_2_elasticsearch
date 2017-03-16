@@ -1,6 +1,6 @@
 {
   "name": "mysql_2_elasticsearch",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Customizable importer from mysql to elasticsearch.",
   "main": "index.js",
   "directories": {

@@ -83,6 +83,14 @@ module.exports = function(config, callback) {
           failed: failedArr.length,
           result: successArr.length == mapLen ? 'success' : 'failed'
         });
+
+        pool.end(function (err) {
+          if (err) {
+            console.log(err);
+          }
+
+          console.log('Mysql 连接已断开...');
+        });
       }
     });
   }
